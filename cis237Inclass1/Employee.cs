@@ -37,8 +37,10 @@ namespace cis237Inclass1
 
         //Public Methods
 
-        public override string ToString()
+        public override string ToString()  //using the override will override the default method that is created alongside all objects
         {
+
+            //.this refers to the current class
             return _firstName + " " + _lastName;
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace cis237Inclass1
 {
@@ -38,6 +39,9 @@ namespace cis237Inclass1
             }
 
 
+            ImportCSV("employees.csv", employees);
+
+
             UserInterface ui = new UserInterface();
 
             int choice = ui.GetUserInput();
@@ -64,5 +68,55 @@ namespace cis237Inclass1
             }
 
         }
+
+        static bool ImportCSV(string pathToCsvFile, Employee[] employees)
+        {
+            StreamReader streamReader = null;
+
+            try
+            {
+                string line;
+
+                streamReader = new StreamReader(pathToCsvFile);
+
+                int counter = 0;
+
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    ProcessLine(line, employees, counter++);
+                }
+
+                return true;
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                Console.WriteLine();
+                Console.WriteLine(e.StackTrace);
+
+                return false;
+            }
+            finally
+            {
+                if (streamReader != null)
+                {
+                    streamReader.Close();
+                }
+            }
+                   
+        }
+
+        static void ProcessLine(string line, Employee[] employees, int index)
+        {
+            string[] parts = line.Split(',');
+
+            string firstName = parts[0];
+            string lastName = parts[1];
+            decimal salary = decimal.Parse(parts[2]);
+
+            employees[index] = new Employee(firstName, lastName, salary);
+        }
+
     }
 }
