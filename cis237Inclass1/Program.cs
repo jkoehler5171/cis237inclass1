@@ -44,7 +44,11 @@ namespace cis237Inclass1
 
             UserInterface ui = new UserInterface();
 
-            int choice = ui.GetUserInput();
+
+
+            //int choice = ui.GetUserInput();
+
+            int choice = StaticUserInterface.GetUserInput();
 
             while (choice != 2)
             {
